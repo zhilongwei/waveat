@@ -1,0 +1,30 @@
+[project]
+name = "waveat"
+version = "0.1.0"
+description = "WaveAt is a Python package for wave attenuation by vegetation."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Zhilong Wei", email = "vitzron@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "numpy>=2.5.1",
+    "scipy>=1.18.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.0,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.39.9",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.16.0",
+]
+
+[tool.ruff.lint]
+ignore = ["E741"]
