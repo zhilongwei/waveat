@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from waveat.airy_wave import AiryWave
-from waveat.constants import G_ACCEL
+from waveat.constants import DENS_FRESHWATER, DENS_SEAWATER, G_ACCEL
 
 ABS_TOL = 1.0e-8  # Absolute tolerance for floating-point comparisons
 
@@ -46,3 +46,48 @@ def test_airy_wave_free_surface_conditions():
     assert wave.pressure_transfer(0.0) == pytest.approx(wave.rhow * G_ACCEL)
     assert wave.vertical_velocity_transfer(0.0) == pytest.approx(1j * wave.omega)
     assert wave.vertical_velocity_transfer(-wave.h) == pytest.approx(0.0)
+
+
+@pytest.mark.parametrize(
+    "h, T, rhow",
+    [
+        (-10.0, 6.0, DENS_SEAWATER),
+        (0.0, 6.0, DENS_SEAWATER),
+        (np.nan, 6.0, DENS_SEAWATER),
+        (np.inf, 6.0, DENS_SEAWATER),
+        (10.0, -6.0, DENS_SEAWATER),
+        (10.0, 0.0, DENS_SEAWATER),
+        (10.0, np.nan, DENS_SEAWATER),
+        (10.0, np.inf, DENS_SEAWATER),
+        (10.0, 6.0, -DENS_FRESHWATER),
+        (10.0, 6.0, 0.0),
+        (10.0, 6.0, np.nan),
+    ],
+)
+def test_airy_wave_rejects_invalid_inputs(h, T, rhow):
+    with pytest.raises(ValueError):
+        AiryWave(h=h, T=T, rhow=rhow)
+
+
+def test_airy_wave_rejects_extreme_parameters():
+    with pytest.raises(ValueError):
+        AiryWave(h=1e-300, T=1e-300)
+
+
+@pytest.mark.parametrize("z", [np.nan, np.inf, -np.inf])
+def test_airy_wave_rejects_nonfinite_z(z):
+    wave = AiryWave(h=10.0, T=6.0)
+    with pytest.raises(ValueError):
+        wave.velocity_potential_transfer(z)
+
+
+def test_airy_wave_rejects_z_above_surface():
+    wave = AiryWave(h=10.0, T=6.0)
+    with pytest.raises(ValueError):
+        wave.velocity_potential_transfer(1.0)
+
+
+def test_airy_wave_rejects_z_below_seabed():
+    wave = AiryWave(h=10.0, T=6.0)
+    with pytest.raises(ValueError):
+        wave.velocity_potential_transfer(-11.0)
