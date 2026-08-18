@@ -8,7 +8,7 @@ license-files = ["LICENSE"]
 authors = [
     { name = "Zhilong Wei", email = "vitzron@gmail.com" }
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = [
     "numpy>=2.5.2",
     "scipy>=1.18.0",
