@@ -678,6 +678,11 @@ class RegularWaveOverVegetation:
                 kr[i] = np.real(self.k)
                 ki[i] = np.imag(self.k)
 
+                if ki[i] > 0:
+                    raise RuntimeError(
+                        f"Non-physical wavenumber: at x[{i}] = {x[i]}: ki = {ki[i]}"
+                    )
+
                 dx = x[i + 1] - x[i]
                 heights[i + 1] = heights[i] * np.exp(ki[i] * dx)
                 self.H = heights[i + 1]
