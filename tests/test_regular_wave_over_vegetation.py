@@ -502,7 +502,7 @@ def test_transfer_functions_support_vectorized_inputs(
 
 
 # =============================================================================
-# 7. Spatial Decay (`wave_heights_along_canopy` & `setH0`)
+# 7. Spatial Decay (`wave_heights_along_canopy` & `set_H0`)
 # =============================================================================
 
 
@@ -564,7 +564,7 @@ def test_set_h0_updates_height_and_recomputes_damping(
     bottom_model.find_linear_damping()
     d_initial = bottom_model.D_over_omega
 
-    bottom_model.setH0(0.8)
+    bottom_model.set_H0(0.8)
     assert bottom_model.H == pytest.approx(0.8)
     # Higher wave height results in larger drag velocity and higher damping
     assert bottom_model.D_over_omega > d_initial
@@ -573,7 +573,7 @@ def test_set_h0_updates_height_and_recomputes_damping(
 @pytest.mark.parametrize("H_invalid", [-0.5, 0.0, np.nan, np.inf])
 def test_set_h0_rejects_invalid_h(bottom_model: RegularWaveOverVegetation, H_invalid):
     with pytest.raises(ValueError, match="H must be a positive finite number"):
-        bottom_model.setH0(H_invalid)
+        bottom_model.set_H0(H_invalid)
 
 
 # =============================================================================

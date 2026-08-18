@@ -639,7 +639,7 @@ class RegularWaveOverVegetation:
         self.find_wavenumber(D_over_omega=D1 / self.wave.omega)
         return D1
 
-    def setH0(self, H: float) -> None:
+    def set_H0(self, H: float) -> None:
         if not np.isfinite(H) or H <= 0:
             raise ValueError("H must be a positive finite number.")
         self.H = H
