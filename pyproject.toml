@@ -28,3 +28,11 @@ dev = [
 
 [tool.ruff.lint]
 ignore = ["E741"]
+
+[tool.basedpyright]
+typeCheckingMode = "standard"
+reportMissingTypeStubs = false
+reportUnknownMemberType = false
+reportUnknownVariableType = false
+reportUnknownArgumentType = false
+reportAny = false
