@@ -9,6 +9,9 @@ from .regular_wave_over_vegetation import DragVelocity, RegularWaveOverVegetatio
 
 
 class IrregularWaveOverVegetation:
+    canopy: Canopy
+    Nz: int
+
     def __init__(
         self,
         canopy: Canopy,
@@ -40,9 +43,9 @@ class IrregularWaveOverVegetation:
         self,
         omegas: ArrayLike,
         Sw: ArrayLike,
-        alpha=0.7,
-        rtol=1.0e-8,
-        max_itr=100,
+        alpha: float = 0.7,
+        rtol: float = 1.0e-8,
+        max_itr: int = 100,
         drag_velocity: DragVelocity = "filter",
         rhow: float = DENS_SEAWATER,
     ):
@@ -139,9 +142,9 @@ class IrregularWaveOverVegetation:
         self,
         omegas: ArrayLike,
         Sw: ArrayLike,
-        alpha=0.7,
-        rtol=1.0e-8,
-        max_itr=100,
+        alpha: float = 0.7,
+        rtol: float = 1.0e-8,
+        max_itr: int = 100,
         drag_velocity: DragVelocity = "filter",
         rhow: float = DENS_SEAWATER,
     ):
@@ -179,9 +182,9 @@ class IrregularWaveOverVegetation:
         omegas: ArrayLike,
         Sw: ArrayLike,
         x: ArrayLike,
-        alpha=0.7,
-        rtol=1.0e-8,
-        max_itr=100,
+        alpha: float = 0.7,
+        rtol: float = 1.0e-8,
+        max_itr: int = 100,
         drag_velocity: DragVelocity = "filter",
         rhow: float = DENS_SEAWATER,
     ):
