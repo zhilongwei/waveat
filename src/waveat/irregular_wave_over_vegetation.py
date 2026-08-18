@@ -73,7 +73,7 @@ class IrregularWaveOverVegetation:
             hu = wave.horizontal_velocity_transfer(z0)
             Su[i] = np.abs(hu) ** 2 * Sw_arr[i]
 
-        variance = float(integrate.simpson(Su, omegas_arr))
+        variance = float(integrate.simpson(Su, x=omegas_arr))
         sigma_u = float(np.sqrt(variance))
 
         # Initial guess of linear damping
@@ -118,8 +118,8 @@ class IrregularWaveOverVegetation:
                 self.canopy.D0
                 / pn**2
                 * np.sqrt(8.0 / np.pi)
-                * integrate.simpson(sigmas_ur**3, zz)
-                / integrate.simpson(sigmas_ur**2, zz)
+                * integrate.simpson(sigmas_ur**3, x=zz)
+                / integrate.simpson(sigmas_ur**2, x=zz)
             )
             err = np.abs(D2 - D1) / D1
             D1 = alpha * D2 + (1.0 - alpha) * D1
